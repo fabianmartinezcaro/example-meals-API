@@ -30,6 +30,6 @@ export function seleccionarReceta(idReceta){
 
     fetch(URL)
         .then(respuesta => respuesta.json())
-        .then(resultado => ui.mostrarInfoModal(resultado))
+        .then(resultado => ui.mostrarInfoModal(resultado.meals[0]))
         .catch(error => error)
 }

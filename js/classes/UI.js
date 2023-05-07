@@ -1,4 +1,4 @@
-import { categorias, resultado } from "../selectores.js";
+import { categorias, resultado, modal } from "../selectores.js";
 import { seleccionarReceta } from "../funciones.js";
 
 export default class UI{
@@ -67,8 +67,22 @@ export default class UI{
         })
     }
 
-    mostrarInfoModal(receta = []){
-        console.log(receta.meals);
+    mostrarInfoModal(receta){
+
+        const {idMeal, strMealThumb, strInstructions, strMeal} = receta;
+        console.log(receta)
+    
+        const tituloModal = document.querySelector('.modal .modal-title');
+        const bodyModal = document.querySelector('.modal .modal-body');
+    
+        tituloModal.textContent = strMeal;
+        bodyModal.innerHTML = `
+            <img class="img-fluid" src="${strMealThumb}" alt="Receta ${strMeal}"></img>
+
+        `
+    
+        modal.show();
+    
     }
 
     limpiarHTML(contenedor){
