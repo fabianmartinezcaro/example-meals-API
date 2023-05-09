@@ -2,6 +2,7 @@ import { categorias, resultado } from "./selectores.js";
 import UI from "./classes/UI.js";
 
 const ui = new UI();
+let arrRecetas = [];
 
 export function cargarCategoria(){
 
@@ -33,3 +34,16 @@ export function seleccionarReceta(idReceta){
         .then(resultado => ui.mostrarInfoModal(resultado.meals[0]))
         .catch(error => error)
 }
+
+export function agregarFavorito(receta){
+    const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
+
+    const recetaExistente = favoritos.find(favorito => favorito.id === receta.id);
+    if(recetaExistente){
+        return;
+    }else{
+        localStorage.setItem('favoritos', JSON.stringify([...favoritos, receta]));
+    }
+}
+
+

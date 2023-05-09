@@ -1,5 +1,5 @@
 import { categorias, resultado, modal } from "../selectores.js";
-import { seleccionarReceta } from "../funciones.js";
+import { seleccionarReceta, agregarFavorito } from "../funciones.js";
 
 export default class UI{
 
@@ -109,21 +109,28 @@ export default class UI{
 
         // Generar botones cerrar y agregarFavoritos
         const modalFooter = document.querySelector('.modal-footer');
-        this.limpiarHTML(modalFooter)
+        this.limpiarHTML(modalFooter);
 
-        const agregarFavorito = document.createElement('BUTTON');
-        agregarFavorito.classList.add('btn', 'btn-danger');
-        agregarFavorito.textContent = 'Agregar a Favoritos';
+        const btnAgregarFavorito = document.createElement('BUTTON');
+        btnAgregarFavorito.classList.add('btn', 'btn-danger');
+        btnAgregarFavorito.textContent = 'Agregar a Favoritos';
+        btnAgregarFavorito.onclick = function () {
+            agregarFavorito({
+                id: idMeal,
+                receta: strMeal,
+                imagen: strMealThumb
+            });
+        }
 
-        const cerrarModal = document.createElement('BUTTON');
-        cerrarModal.classList.add('btn', 'btn-secondary');
-        cerrarModal.textContent = 'Cerrar';
-        cerrarModal.onclick = function () {
+        const btnCerrarModal = document.createElement('BUTTON');
+        btnCerrarModal.classList.add('btn', 'btn-secondary');
+        btnCerrarModal.textContent = 'Cerrar';
+        btnCerrarModal.onclick = function () {
             modal.hide();
         }
 
-        modalFooter.appendChild(agregarFavorito);
-        modalFooter.appendChild(cerrarModal);
+        modalFooter.appendChild(btnAgregarFavorito);
+        modalFooter.appendChild(btnCerrarModal);
     
         modal.show();
     
