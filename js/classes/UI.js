@@ -67,6 +67,7 @@ export default class UI{
         })
     }
 
+
     mostrarInfoModal(receta){
 
         const {idMeal, strMealThumb, strInstructions, strMeal} = receta;
@@ -78,8 +79,51 @@ export default class UI{
         tituloModal.textContent = strMeal;
         bodyModal.innerHTML = `
             <img class="img-fluid" src="${strMealThumb}" alt="Receta ${strMeal}"></img>
-
+            <h3 class="my-2">Instructions</h3>
+            <p class="text-secondary">${strInstructions}</p>
         `
+
+
+        const tituloIngredientes = document.createElement('H3');
+        tituloIngredientes.textContent = 'Ingredients';
+        bodyModal.appendChild(tituloIngredientes);
+
+        const listGroup = document.createElement('UL');
+        listGroup.classList.add('list-group');
+        bodyModal.appendChild(listGroup)
+
+        // Mostrar cantidades e ingredientes
+        for(let i = 1; i <= 20; i++){
+            if(receta[`strIngredient${i}`]){
+                const ingrediente = receta[`strIngredient${i}`];
+                const cantidad = receta[`strMeasure${i}`];
+
+                const ingredienteLI = document.createElement('LI');
+                ingredienteLI.classList.add('list-group-item');
+                ingredienteLI.innerHTML = `<p>${ingrediente} - <span class="text-secondary">${cantidad}</span></p>`;
+            
+                listGroup.appendChild(ingredienteLI);
+
+            } 
+        }
+
+        // Generar botones cerrar y agregarFavoritos
+        const modalFooter = document.querySelector('.modal-footer');
+        this.limpiarHTML(modalFooter)
+
+        const agregarFavorito = document.createElement('BUTTON');
+        agregarFavorito.classList.add('btn', 'btn-danger');
+        agregarFavorito.textContent = 'Agregar a Favoritos';
+
+        const cerrarModal = document.createElement('BUTTON');
+        cerrarModal.classList.add('btn', 'btn-secondary');
+        cerrarModal.textContent = 'Cerrar';
+        cerrarModal.onclick = function () {
+            modal.hide();
+        }
+
+        modalFooter.appendChild(agregarFavorito);
+        modalFooter.appendChild(cerrarModal);
     
         modal.show();
     
