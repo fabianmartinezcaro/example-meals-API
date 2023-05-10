@@ -1,5 +1,5 @@
 import { categorias, resultado, modal } from "../selectores.js";
-import { seleccionarReceta, agregarFavorito } from "../funciones.js";
+import { seleccionarReceta, agregarFavorito, eliminarFavorito, recetaExiste } from "../funciones.js";
 
 export default class UI{
 
@@ -115,11 +115,15 @@ export default class UI{
         btnAgregarFavorito.classList.add('btn', 'btn-danger');
         btnAgregarFavorito.textContent = 'Agregar a Favoritos';
         btnAgregarFavorito.onclick = function () {
-            agregarFavorito({
-                id: idMeal,
-                receta: strMeal,
-                imagen: strMealThumb
-            });
+
+            if(recetaExiste(idMeal)){
+                btnAgregarFavorito.textContent = 'Eliminar Receta';
+                eliminarFavorito(idMeal);
+                return;
+            }else{
+                agregarFavorito({id: idMeal, receta: strMeal, imagen: strMealThumb});
+            }
+
         }
 
         const btnCerrarModal = document.createElement('BUTTON');

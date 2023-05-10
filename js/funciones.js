@@ -2,7 +2,6 @@ import { categorias, resultado } from "./selectores.js";
 import UI from "./classes/UI.js";
 
 const ui = new UI();
-let arrRecetas = [];
 
 export function cargarCategoria(){
 
@@ -27,7 +26,7 @@ export function seleccionarCategoria(evento){
 }
 
 export function seleccionarReceta(idReceta){
-    const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idReceta}`
+    const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idReceta}`;
 
     fetch(URL)
         .then(respuesta => respuesta.json())
@@ -35,15 +34,26 @@ export function seleccionarReceta(idReceta){
         .catch(error => error)
 }
 
+
+
+// localStorage
+
 export function agregarFavorito(receta){
     const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
-
-    const recetaExistente = favoritos.find(favorito => favorito.id === receta.id);
-    if(recetaExistente){
-        return;
-    }else{
-        localStorage.setItem('favoritos', JSON.stringify([...favoritos, receta]));
-    }
+    localStorage.setItem('favoritos', JSON.stringify([...favoritos, receta]));
 }
 
+
+export function recetaExiste(id){
+    const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
+    const recetaExistente = favoritos.some(favorito => favorito.id === id);
+    return recetaExistente;
+}
+
+
+export function eliminarFavorito(id){
+    const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
+    const favoritosActualizado = favoritos.filter(favorito => favorito.id !== id);
+    localStorage.setItem('favoritos', JSON.stringify(favoritosActualizado));
+}
 
