@@ -1,4 +1,4 @@
-import { categorias, resultado, modal } from "../selectores.js";
+import { categorias, resultado, modal, toast, toastBody } from "../selectores.js";
 import { seleccionarReceta, agregarFavorito, eliminarFavorito, recetaExiste } from "../funciones.js";
 
 export default class UI{
@@ -71,7 +71,6 @@ export default class UI{
     mostrarInfoModal(receta){
 
         const {idMeal, strMealThumb, strInstructions, strMeal} = receta;
-        console.log(receta)
     
         const tituloModal = document.querySelector('.modal .modal-title');
         const bodyModal = document.querySelector('.modal .modal-body');
@@ -122,16 +121,31 @@ export default class UI{
 
         btnAgregarFavorito.onclick = function () {
 
+            const mensaje = document.createElement('STRONG');
+
             if(recetaExiste(idMeal)){
                 eliminarFavorito(idMeal);
+
+                mensaje.textContent = 'Receta Eliminada de tus Favoritos';
+                toastBody.appendChild(mensaje)
+                toast.show();
+
                 btnAgregarFavorito.textContent = 'Agregar a Favoritos';
                 return;
+
             }else{
                 agregarFavorito({id: idMeal, receta: strMeal, imagen: strMealThumb});
+
+                mensaje.textContent = 'Receta Agregada a Favoritos';
+                toastBody.appendChild(mensaje)
+                toast.show();
+
                 btnAgregarFavorito.textContent = 'Eliminar Receta';
+
             }
 
         }
+
 
         const btnCerrarModal = document.createElement('BUTTON');
         btnCerrarModal.classList.add('btn', 'btn-secondary');

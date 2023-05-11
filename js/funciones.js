@@ -14,6 +14,7 @@ export function cargarCategoria(){
 
 }  
 
+
 export function seleccionarCategoria(evento){
     const categoria = evento.target.value;
     const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoria}`;
@@ -24,6 +25,7 @@ export function seleccionarCategoria(evento){
         .catch(error => console.log(error))
 
 }
+
 
 export function seleccionarReceta(idReceta){
     const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idReceta}`;
