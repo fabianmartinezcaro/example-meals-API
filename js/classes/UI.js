@@ -119,21 +119,22 @@ export default class UI{
             btnAgregarFavorito.textContent = 'Agregar a Favoritos';
         }
 
+        const self = this;
+
         btnAgregarFavorito.onclick = function () {
 
             if(recetaExiste(idMeal)){
                 eliminarFavorito(idMeal);
                 btnAgregarFavorito.textContent = 'Agregar a Favoritos';
-
+                self.mostrarToast('Receta Eliminada Correctamente!');
                 return;
             }else{
                 agregarFavorito({id: idMeal, receta: strMeal, imagen: strMealThumb});
                 btnAgregarFavorito.textContent = 'Eliminar Receta';
+                self.mostrarToast('Receta Agregada Correctamente!');
             }
 
         }
-
-        this.mostrarToast('Receta Agregada Correctamente!');
 
         const btnCerrarModal = document.createElement('BUTTON');
         btnCerrarModal.classList.add('btn', 'btn-secondary');
