@@ -8,7 +8,13 @@ export function cargarCategoria(){
     const URL = 'https://www.themealdb.com/api/json/v1/1/categories.php';
 
     fetch(URL)
-        .then(respuesta => respuesta.json())
+        .then(respuesta => {
+            if(respuesta.status === 500){
+                ui.mostrarError();
+            }else if(respuesta.status === 200){
+                return respuesta.json()
+            }
+        })
         .then(categorias => ui.mostrarCategorias(categorias.categories))
         .catch(error => error);
 

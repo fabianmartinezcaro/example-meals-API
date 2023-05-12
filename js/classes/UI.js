@@ -121,31 +121,19 @@ export default class UI{
 
         btnAgregarFavorito.onclick = function () {
 
-            const mensaje = document.createElement('STRONG');
-
             if(recetaExiste(idMeal)){
                 eliminarFavorito(idMeal);
-
-                mensaje.textContent = 'Receta Eliminada de tus Favoritos';
-                toastBody.appendChild(mensaje)
-                toast.show();
-
                 btnAgregarFavorito.textContent = 'Agregar a Favoritos';
-                return;
 
+                return;
             }else{
                 agregarFavorito({id: idMeal, receta: strMeal, imagen: strMealThumb});
-
-                mensaje.textContent = 'Receta Agregada a Favoritos';
-                toastBody.appendChild(mensaje)
-                toast.show();
-
                 btnAgregarFavorito.textContent = 'Eliminar Receta';
-
             }
 
         }
 
+        this.mostrarToast('Receta Agregada Correctamente!');
 
         const btnCerrarModal = document.createElement('BUTTON');
         btnCerrarModal.classList.add('btn', 'btn-secondary');
@@ -160,6 +148,18 @@ export default class UI{
         modal.show();
     
     }
+
+    
+    mostrarToast(mensaje){
+        toastBody.textContent = mensaje;
+        toast.show();
+    }
+
+
+    mostrarError(mensaje, tipo){
+
+    }
+
 
     limpiarHTML(contenedor){
         while(contenedor.firstChild){
