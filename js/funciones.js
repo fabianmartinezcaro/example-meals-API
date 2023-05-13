@@ -1,4 +1,4 @@
-import { categorias, resultado } from "./selectores.js";
+import { categorias, resultado, resultadoFavoritos } from "./selectores.js";
 import UI from "./classes/UI.js";
 
 const ui = new UI();
@@ -45,6 +45,20 @@ export function seleccionarReceta(idReceta){
 
 
 // localStorage
+
+export function obtenerFavoritos(){
+    const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
+    if(favoritos.length){
+        ui.mostrarRecetas(favoritos);
+        return;
+    }
+
+    const noFavoritos = document.createElement('P');
+    noFavoritos.textContent = 'No hay favoritos, agrega algunas recetas!';
+    noFavoritos.classList.add('fs-4', 'text-center', 'font-bold', 'text-secondary', 'mt-5')
+    resultadoFavoritos.appendChild(noFavoritos);
+
+}
 
 export function agregarFavorito(receta){
     const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];

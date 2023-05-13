@@ -30,27 +30,27 @@ export default class UI{
             recetaContenedor.classList.add('col-md-4');
 
             const recetaCard = document.createElement('DIV');
-            recetaCard.classList.add('card', 'mb-4')
+            recetaCard.classList.add('card', 'mb-4');
 
             const imagenReceta = document.createElement('IMG');
             imagenReceta.classList.add('card-img-top');
-            imagenReceta.alt = `Nombre de la receta ${strMeal}`;
-            imagenReceta.src = `${strMealThumb}`;
+            imagenReceta.alt = `Nombre de la receta ${strMeal ?? receta.receta}`;
+            imagenReceta.src = strMealThumb ?? receta.imagen;
 
             const recetaCardBody = document.createElement('DIV');
             recetaCardBody.classList.add('card-body');
 
             const recetaHeading = document.createElement('H3');
             recetaHeading.classList.add('card-title', 'mb-3');
-            recetaHeading.textContent = strMeal;
+            recetaHeading.textContent = strMeal ?? receta.receta;
 
             const recetaButton = document.createElement('BUTTON');
             recetaButton.classList.add('btn', 'btn-danger', 'w-100');
             recetaButton.textContent = 'Ver Receta';
-            // recetaButton.dataset.bsTarget = '#modal';
-            // recetaButton.dataset.bsToggle = 'modal';
+            recetaButton.dataset.bsTarget = '#modal';
+            recetaButton.dataset.bsToggle = 'modal';
             recetaButton.onclick = function () {
-                seleccionarReceta(idMeal);
+                seleccionarReceta(idMeal ?? receta.id);
             }
 
 

@@ -2,8 +2,11 @@
 // SELECTOR CATEGORIAS
 export const categorias = document.querySelector('#categorias');
 
-// DIV RESULTADOS
+// DIV RESULTADOS INICIO
 export const resultado = document.querySelector('#resultado');
+
+// DIV RESULTADOS FAVORITOS
+export const resultadoFavoritos = document.querySelector('.favoritos');
 
 // OBJETO PARA MODAL
 export const modal = new bootstrap.Modal('#modal', {});
